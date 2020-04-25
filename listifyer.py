@@ -1,9 +1,14 @@
 import imaplib, email
 from bs4 import BeautifulSoup
 import csv
+import re
+
+def striphtml(data):
+    p = re.compile(r'<.*?>')
+    return p.sub('', data)
 
 #logs into email and opens inbox
-user = "@outlook.com"
+user = ""
 password = ""
 imap_url = "outlook.office365.com"
 mail = imaplib.IMAP4_SSL(imap_url)
@@ -44,7 +49,6 @@ for item in inbox_item_list:
         testcards = text.split("#")
         del testcards[-1]
         #print(testcards)
-
         for testees in testcards:
             #print(testcards[testcards.index(testees)])
             test_array +=[["", testcards[testcards.index(testees)]]]
@@ -58,7 +62,6 @@ for item in inbox_item_list:
         procards = text.split("#")
         del procards[-1]
         #print(cards)
-        
         for proms in procards:
             prompts+=[["", procards[procards.index(proms)]]]
 
@@ -66,14 +69,13 @@ for item in inbox_item_list:
         print(prompts)
         print("valid")
 
-    elif subject_ == "answer" or subject_ == "answers":
+    elif subject_ == "answer" or subject_ == "answers" or subject_ == "awnsers":
         html_ = part.get_payload()
         soup = BeautifulSoup(html_, "html.parser")
         text = soup.get_text()
         anscards = text.split("#")
         del anscards[-1]
         #print(anscards)
-
         for anses in anscards:
             awnsers +=[["", anscards[anscards.index(anses)]]]
         print("added as:")
