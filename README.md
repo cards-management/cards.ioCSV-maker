@@ -1,2 +1,2 @@
-# cards.ioCSV-maker
-an email tool to submit card text for custom remote insensitivity packs on cards.io using emails and coalate into 2 uploadable csv files
+# Collaborative email Remote Insensitivity cards
+A tool which reads emails from an account and collates them into csv files which can then uploaded to Remote Insensivity on cards.io
