@@ -24,7 +24,7 @@ print (mid_file)
 
 while a>0:
     out_text = out_text+mid_file[b]
-    out_text = out_text+"#"
+    out_text = out_text+"\n"
     a=a-1
     b=b+1
 print("====================")
