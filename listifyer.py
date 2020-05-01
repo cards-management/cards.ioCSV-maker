@@ -2,8 +2,8 @@ import imaplib, email
 import csv
 
 #logs into email and opens inbox
-email_user = ""
-email_pass = ""
+email_user = "cucumbercards@outlook.com"
+email_pass = "methmatics69"
 imap_url = "outlook.office365.com"
 
 mail = imaplib.IMAP4_SSL(imap_url)
@@ -55,6 +55,16 @@ for item in inbox_item_list:
             answers +=[["", anses]]
         print(answers)
 
+aa = len(answers)
+for asis in answers:
+    answers[aa][1] = answers[aa][1].replace(",",";")
+    aa = aa-1
+
+aa = len(proms)
+for alps in proms:
+    proms[aa][1] = proms[aa][1].replace(",",";")
+    aa = aa-1
+
 #exports as csvs
 with open("promptcards.csv","w",newline='') as my_csv:
     csvWriter = csv.writer(my_csv,delimiter=',')
@@ -67,3 +77,4 @@ with open("awnsercards.csv","w",newline='') as my_csv:
 # Log out of mail
 mail.close()
 mail.logout()
+
