@@ -57,7 +57,7 @@ for item in inbox_item_list:
 
 #exports as csvs
 with open("promptcards.csv","w",newline='') as my_csv:
-    csvWriter = csv.writer(my_csv,delimiter='#')
+    csvWriter = csv.writer(my_csv,delimiter=',')
     csvWriter.writerows(prompts)
 with open("awnsercards.csv","w",newline='') as my_csv:
     csvWriter = csv.writer(my_csv,delimiter=',')
