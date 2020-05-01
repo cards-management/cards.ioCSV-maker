@@ -45,12 +45,12 @@ for item in inbox_item_list:
     parts = em_text.split("\r\n")
     parts = filter(None, parts) # Removes empty parts
     
-    if "prompt" in em_subject.lower() or "question" in em_subject.lower():    
+    if "prompt" in em_subject.lower() or "question" in em_subject.lower() or "prompts" in em_subject.lower() or "questions" in em_subject.lower():    
         for proms in parts:
             prompts+=[["", proms]]
         print(prompts)
 
-    elif "answer" in em_subject.lower():
+    elif "answer" in em_subject.lower() or "answers" in em_subject.lower():
         for anses in parts:
             answers +=[["", anses]]
         print(answers)
