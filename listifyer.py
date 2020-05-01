@@ -35,7 +35,8 @@ for item in inbox_item_list:
     em_text = ""
     for payload in email_message.walk():
         if payload.get_content_type().lower() == 'text/plain':
-            em_text = payload.get_payload()
+            charset = payload.get_content_charset()
+            em_text = payload.get_payload(decode=True).decode(encoding=charset, errors="ignore")
 
     if em_text == "":
         print("Nothing found in email from " + em_from)
