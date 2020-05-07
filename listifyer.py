@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 #logs into email and opens inbox
 email_user = ""
-email_pass = ""
+email_pass = "" 
 imap_url = "outlook.office365.com"
 
 mail = imaplib.IMAP4_SSL(imap_url)
@@ -47,10 +47,7 @@ for item in inbox_item_list:
             soup = BeautifulSoup(em_html, "html.parser")
             em_text = soup.get_text()#.replace(u'\xa0', u'\r\n')
             print(em_text)
-
-
-
-    continue
+            
     if em_text == "":
         print("Nothing found in email from " + em_from)
 
@@ -58,15 +55,21 @@ for item in inbox_item_list:
     parts = em_text.split("\r\n")
     parts = filter(None, parts) # Removes empty parts
     
-    if "prompt" in em_subject.lower() or "question" in em_subject.lower():    
+    if "prompt" in em_subject.lower() or "question" in em_subject.lower() or "prompts" in em_subject.lower() or "questions" in em_subject.lower():    
         for proms in parts:
             prompts+=[["", proms]]
         print(prompts)
 
-    elif "answer" in em_subject.lower():
+    elif "answer" in em_subject.lower() or "answers" in em_subject.lower():
         for anses in parts:
             answers +=[["", anses]]
         print(answers)
+
+#replaces commas with a similar symbol to stop CSV formatting issues
+for i in range(len(answers)):
+    answers[i][1] = answers[i][1].replace(",","¸")
+for i in range(len(prompts)):
+    prompts[i][1] = prompts[i][1].replace(",","¸")
 
 #exports as csvs
 with open("promptcards.csv","w",newline='') as my_csv:
@@ -80,3 +83,4 @@ with open("awnsercards.csv","w",newline='') as my_csv:
 # Log out of mail
 mail.close()
 mail.logout()
+
