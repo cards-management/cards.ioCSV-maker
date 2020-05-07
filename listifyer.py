@@ -1,5 +1,7 @@
 import imaplib, email
 import csv
+import quopri
+from bs4 import BeautifulSoup
 
 #logs into email and opens inbox
 email_user = ""
@@ -31,13 +33,21 @@ for item in inbox_item_list:
     em_subject = email_message["Subject"]
 
     print("Reading email from " + em_from)
+
     # Get plaintext version of email
     em_text = ""
     for payload in email_message.walk():
-        if payload.get_content_type().lower() == 'text/plain':
+        if payload.get_content_type().lower() == 'text/html':
+            #utf = quopri.decodestring(payload.get_payload())
+            #em_html = utf.decode("utf-8")
+            #print(text)
             charset = payload.get_content_charset()
-            em_text = payload.get_payload(decode=True).decode(encoding=charset, errors="ignore")
+            em_html = payload.get_payload(decode=True).decode(encoding=charset, errors="ignore")
 
+            soup = BeautifulSoup(em_html, "html.parser")
+            em_text = soup.get_text()#.replace(u'\xa0', u'\r\n')
+            print(em_text)
+            
     if em_text == "":
         print("Nothing found in email from " + em_from)
 
